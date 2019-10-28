@@ -1,27 +1,26 @@
 version: '3'
 services:
-    app-nginx:
+    nginx:
         build:
             context: ./docker/development
             dockerfile: nginx.docker
         volumes:
             - ./app:/app:cached
         depends_on:
-            - app-php-fpm
+            - php-fpm
         ports:
             - "8080:80"
 
-    app-php-fpm:
+    php-fpm:
         build:
             context: ./docker/development
             dockerfile: php-fpm.docker
         volumes:
             - ./app:/app:cached
         depends_on:
-            - app-postgres
-            - mailer
+            - postgres
 
-    app-php-cli:
+    php-cli:
         build:
             context: ./docker/development
             dockerfile: php-cli.docker
@@ -29,13 +28,12 @@ services:
             - ./app:/app:cached
             - composer:/root/.composer/cache:cached
         depends_on:
-            - app-postgres
-            - mailer
+            - postgres
 
-    app-postgres:
+    postgres:
         image: postgres:11.2-alpine
         volumes:
-            - app-postgres:/var/lib/postgresql/data:cached
+            - postgres:/var/lib/postgresql/data:cached
         environment:
             POSTGRES_USER: app
             POSTGRES_PASSWORD: secret
@@ -43,24 +41,6 @@ services:
         ports:
             - "8432:5432"
 
-    app-node:
-        image: node:12.7-alpine
-        volumes:
-            - ./app:/app
-        working_dir: /app
-
-    app-node-watch:
-        image: node:12.7-alpine
-        volumes:
-            - ./app:/app:cached
-        working_dir: /app
-        command: sh -c "until [ -f .ready ] ; do sleep 1 ; done && npm run watch"
-
-    mailer:
-        image: mailhog/mailhog
-        ports:
-            - "8025:8025"
-
 volumes:
-    app-postgres:
+    postgres:
     composer:
