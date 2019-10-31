@@ -1,0 +1,163 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Sport API",
+        "description": "HTTP JSON API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/games": {
+            "post": {
+                "tags": [
+                    "Games"
+                ],
+                "operationId": "App\\Controller\\GameController::create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "games": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "language": {
+                                                    "type": "string"
+                                                },
+                                                "sport": {
+                                                    "type": "string"
+                                                },
+                                                "league": {
+                                                    "type": "string"
+                                                },
+                                                "team_one": {
+                                                    "type": "string"
+                                                },
+                                                "team_two": {
+                                                    "type": "string"
+                                                },
+                                                "source": {
+                                                    "type": "string"
+                                                },
+                                                "start_date": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success response"
+                    }
+                }
+            }
+        },
+        "/games/random": {
+            "get": {
+                "tags": [
+                    "Games"
+                ],
+                "operationId": "App\\Controller\\GameController::random",
+                "parameters": [
+                    {
+                        "name": "filter[source]",
+                        "in": "query",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[start_date_start]",
+                        "in": "query",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "filter[start_date_end]",
+                        "in": "query",
+                        "required": false,
+                        "style": "form",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "league": {
+                                                    "type": "string"
+                                                },
+                                                "team_one": {
+                                                    "type": "string"
+                                                },
+                                                "team_two": {
+                                                    "type": "string"
+                                                },
+                                                "buffer_count": {
+                                                    "type": "integer"
+                                                },
+                                                "start_date": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/": {
+            "get": {
+                "tags": [
+                    "API"
+                ],
+                "description": "API Home",
+                "operationId": "App\\Controller\\HomeController::home",
+                "responses": {
+                    "200": {
+                        "description": "Success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

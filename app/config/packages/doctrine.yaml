@@ -3,16 +3,19 @@ doctrine:
         # configure these for your database server
         # use postgresql for PostgreSQL
         # use sqlite for SQLite
-        driver: 'mysql'
-        server_version: '5.7'
-
-        # only needed for MySQL
-        charset: utf8mb4
-        default_table_options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
+        driver: 'pdo_pgsql'
+        server_version: '11.2'
 
         url: '%env(resolve:DATABASE_URL)%'
+
+        types:
+            sport_id: 'App\Model\Entity\Sport\IdType'
+            source_id: 'App\Model\Entity\Source\IdType'
+            team_id: 'App\Model\Entity\Team\IdType'
+            league_id: 'App\Model\Entity\League\IdType'
+            game_source_id: 'App\Model\Entity\GameSource\IdType'
+            language_id: 'App\Model\Entity\Language\IdType'
+            game_id: 'App\Model\Entity\Game\IdType'
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -21,6 +24,6 @@ doctrine:
             App:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
+                dir: '%kernel.project_dir%/src/Model/Entity'
+                prefix: 'App\Model\Entity'
                 alias: App

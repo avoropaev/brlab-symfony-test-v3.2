@@ -1,0 +1,21 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+fos_rest:
+#    param_fetcher_listener:  true
+#    allowed_methods_listener:  true
+#    routing_loader: true
+    view:
+        view_response_listener:  true
+    exception:
+        codes:
+            App\Model\EntityNotFoundException: 404
+            DomainException: 400
+            InvalidArgumentException: 400
+            Symfony\Component\HttpKernel\Exception\NotFoundHttpException: 404
+        messages:
+            App\Model\EntityNotFoundException: true
+            DomainException: true
+            InvalidArgumentException: true
+            Symfony\Component\HttpKernel\Exception\NotFoundHttpException: true
+    format_listener:
+        rules:
+            - { path: ^/, prefer_extension: true, fallback_format: json, priorities: [ json ] }
