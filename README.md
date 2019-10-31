@@ -2,9 +2,9 @@
 
 ## Info
 
-APP: `[http://localhost:8080](http://localhost:8080)`
+APP: [http://localhost:8080](http://localhost:8080)
 
-Documentation: `[http://localhost:8080/docs](http://localhost:8080/docs)`
+Documentation: [http://localhost:8080/docs](http://localhost:8080/docs)
 
 ## Commands
 
